@@ -10,7 +10,7 @@ public class HttpClientExample {
     public static void main(String[] args) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.example.com/data"))
+                .uri(URI.create("https://jsonplaceholder.typicode.com/todos/1"))
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
