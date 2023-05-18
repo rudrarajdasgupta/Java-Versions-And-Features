@@ -1,0 +1,60 @@
+com.example.greeting
+    ├── src
+    │   └── com.example.greeting
+    │       └── com
+    │           └── example
+    │               └── greeting
+    │                   └── Greeting.java
+    └── module-info.java
+
+package com.example.greeting;
+
+public class Greeting {
+    public static void sayHello() {
+        System.out.println("Hello, world!");
+    }
+}
+
+
+module com.example.greeting {
+    exports com.example.greeting;
+}
+
+
+com.example.application
+    ├── src
+    │   └── com.example.application
+    │       └── com
+    │           └── example
+    │               └── application
+    │                   └── Application.java
+    └── module-info.java
+
+package com.example.application;
+
+import com.example.greeting.Greeting;
+
+public class Application {
+    public static void main(String[] args) {
+        Greeting.sayHello();
+    }
+}
+
+module com.example.application {
+    requires com.example.greeting;
+}
+
+Compile
+
+javac -d out/com.example.greeting $(find src/com.example.greeting -name "*.java")
+
+javac --module-path out -d out/com.example.application $(find src/com.example.application -name "*.java")
+
+Run
+
+java --module-path out -m com.example.application/com.example.application.Application
+
+
+Output
+
+Hello, world!
